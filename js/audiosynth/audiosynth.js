@@ -132,20 +132,18 @@ var Synth, AudioSynth, AudioSynthInstrument;
 
 			var out = [
 				'RIFF',
-				pack(1, 4 + (8 + 24/* chunk 1 length */) + (8 + 8/* chunk 2 length */)), // Length
+				pack(1, 4 + (8 + 24) + (8 + 8)), 
 				'WAVE',
-				// chunk 1
-				'fmt ', // Sub-chunk identifier
-				pack(1, 16), // Chunk length
-				pack(0, 1), // Audio format (1 is linear quantization)
+				'fmt ', 
+				pack(1, 16), 
+				pack(0, 1), 
 				pack(0, channels),
 				pack(1, sampleRate),
-				pack(1, sampleRate * channels * bitsPerSample / 8), // Byte rate
+				pack(1, sampleRate * channels * bitsPerSample / 8), 
 				pack(0, channels * bitsPerSample / 8),
 				pack(0, bitsPerSample),
-				// chunk 2
-				'data', // Sub-chunk identifier
-				pack(1, data.length * channels * bitsPerSample / 8), // Chunk length
+				'data', 
+				pack(1, data.length * channels * bitsPerSample / 8), 
 				data
 			];
 			var blob = new Blob(out, {type: 'audio/wav'});
